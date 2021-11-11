@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Service
-public class TestService {
+public class KafkaProducer {
 
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
@@ -29,5 +29,10 @@ public class TestService {
             }
         );
         return "insert current time : {}".format(currentTime);
+    }
+
+    public void sendMessage(String message){
+        log.info("[producer] send message: " + message);
+        kafkaTemplate.send("msghub", message);
     }
 }
